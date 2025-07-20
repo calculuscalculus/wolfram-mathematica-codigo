@@ -1,0 +1,450 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     19000,        442]
+NotebookOptionsPosition[     17081,        400]
+NotebookOutlinePosition[     17485,        416]
+CellTagsIndexPosition[     17442,        413]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Total pages", "Subsubsection",
+ CellChangeTimes->{{3.961966266451924*^9, 3.961966268643965*^9}, 
+   3.961977190339805*^9},ExpressionUUID->"3cf77218-6afe-fb48-9c1c-\
+38a3da5d0c88"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+   "url", "=", "\"\<https://archive.org/details/isbn_9782130504733/\>\""}], 
+   ";"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Place", " ", "here", " ", "the", " ", "url", " ", "of", " ", "the", " ", 
+    "book"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"xml", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"url", ",", "\"\<XMLObject\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"totalET", "=", 
+    RowBox[{"Cases", "[", 
+     RowBox[{"xml", ",", 
+      RowBox[{"XMLElement", "[", 
+       RowBox[{"_", ",", "attrs_", ",", "children_"}], "]"}], ",", 
+      "Infinity"}], "]"}]}], ";"}], " ", 
+  RowBox[{"(*", "A", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"dlBlocks", "=", 
+    RowBox[{
+     RowBox[{"Select", "[", 
+      RowBox[{"totalET", ",", 
+       RowBox[{
+        RowBox[{"StringContainsQ", "[", 
+         RowBox[{
+          RowBox[{"Lookup", "[", 
+           RowBox[{
+            RowBox[{"#", "[", 
+             RowBox[{"[", "2", "]"}], "]"}], ",", "\"\<itemprop\>\"", ",", 
+            "\"\<\>\""}], "]"}], ",", "\"\<numberOfPages\>\""}], "]"}], 
+        "&"}]}], "]"}], "/.", 
+     RowBox[{
+      RowBox[{"XMLElement", "[", 
+       RowBox[{"_", ",", "_", ",", "x_"}], "]"}], ":>", "x"}]}]}], ";"}], " ", 
+  RowBox[{"(*", "B", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"pagTotal", "=", 
+  RowBox[{"ToExpression", "[", 
+   RowBox[{"First", "@", 
+    RowBox[{"First", "[", "dlBlocks", "]"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.961959998748449*^9, 3.961960011853453*^9}, {
+  3.961960049662573*^9, 3.961960201024557*^9}, {3.961960289731615*^9, 
+  3.961960325700934*^9}, {3.9619604110788937`*^9, 3.9619604220306683`*^9}, {
+  3.961960527200922*^9, 3.961960557346049*^9}, {3.961966285909029*^9, 
+  3.9619662865747643`*^9}, {3.961975623774959*^9, 3.9619756356383*^9}, {
+  3.961975734633339*^9, 3.9619757543608437`*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"7e4d7224-fd06-8949-99ef-ecc5ec393ea5"],
+
+Cell[BoxData["382"], "Output",
+ CellChangeTimes->{{3.961960185579925*^9, 3.961960216901646*^9}, {
+   3.9619602937654*^9, 3.9619603258437*^9}, 3.961960422579727*^9, 
+   3.961960558083872*^9, {3.961966272943257*^9, 3.961966292839354*^9}, 
+   3.961968415132234*^9, 3.9619691303679547`*^9, 3.961970801118988*^9, 
+   3.9619722997977448`*^9, 3.961972886200184*^9, 3.9619756383072834`*^9, 
+   3.961980976897236*^9, 3.961981009690338*^9, 3.9619811218067856`*^9},
+ CellLabel->"Out[32]=",ExpressionUUID->"ad71d457-a583-a04a-9858-8e249e946fbf"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Preliminary and main pages", "Subsubsection",
+ CellChangeTimes->{{3.961966299412512*^9, 3.961966305732435*^9}, {
+   3.9619766262865868`*^9, 3.961976628406021*^9}, 
+   3.961977199660797*^9},ExpressionUUID->"fdfc0c0c-0013-4843-8b4a-\
+65d3dba12090"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"pagsPre", "=", "11"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pagsBase", "=", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"EvenQ", "[", "pagsPre", "]"}], ",", "pagsPre", ",", 
+     RowBox[{"pagsPre", "+", "1"}]}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.961966794963644*^9, 3.9619668111689224`*^9}, {
+   3.961967240106833*^9, 3.961967306396829*^9}, {3.961976481714123*^9, 
+   3.961976484810751*^9}, {3.961976650295261*^9, 3.961976695567713*^9}, 
+   3.9619767549547634`*^9, {3.9619767956279383`*^9, 3.9619767985630302`*^9}, 
+   3.961977804402136*^9, {3.961977880901518*^9, 3.961977884172268*^9}, 
+   3.961977972030518*^9},
+ CellLabel->"In[33]:=",ExpressionUUID->"971248c2-5f6e-974a-8ad1-a6ed8999c672"],
+
+Cell["\<\
+We  create  a  list  with  the  preliminary  and  main  pages . Then  we  \
+join .\
+\>", "Text",
+ CellChangeTimes->{{3.961977911871548*^9, 
+  3.961977913150661*^9}},ExpressionUUID->"0abc1a21-ffee-744a-b23e-\
+b321036e6ca7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"prel", "=", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"StringJoin", "[", 
+       RowBox[{
+        RowBox[{"ToString", "[", "n", "]"}], ",", 
+        RowBox[{"ToString", "[", "x", "]"}]}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "0", ",", "pagsBase", ",", "2"}], "}"}]}], "]"}]}], 
+   ";"}], " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"num", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{"x", ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "pagsBase", ",", "pagTotal", ",", "2"}], "}"}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"finalPag", "=", 
+  RowBox[{"Join", "[", 
+   RowBox[{"prel", ",", "num"}], "]"}], " "}]}], "Input",
+ CellChangeTimes->{{3.961977915061041*^9, 3.961977918045429*^9}},
+ CellLabel->"In[35]:=",ExpressionUUID->"a6b70e2b-3770-2b4f-b7e0-25077b23a55a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"n0\"\>", ",", "\<\"n2\"\>", ",", "\<\"n4\"\>", 
+   ",", "\<\"n6\"\>", ",", "\<\"n8\"\>", ",", "\<\"n10\"\>", 
+   ",", "\<\"n12\"\>", ",", "12", ",", "14", ",", "16", ",", "18", ",", "20", 
+   ",", "22", ",", "24", ",", "26", ",", "28", ",", "30", ",", "32", ",", 
+   "34", ",", "36", ",", "38", ",", "40", ",", "42", ",", "44", ",", "46", 
+   ",", "48", ",", "50", ",", "52", ",", "54", ",", "56", ",", "58", ",", 
+   "60", ",", "62", ",", "64", ",", "66", ",", "68", ",", "70", ",", "72", 
+   ",", "74", ",", "76", ",", "78", ",", "80", ",", "82", ",", "84", ",", 
+   "86", ",", "88", ",", "90", ",", "92", ",", "94", ",", "96", ",", "98", 
+   ",", "100", ",", "102", ",", "104", ",", "106", ",", "108", ",", "110", 
+   ",", "112", ",", "114", ",", "116", ",", "118", ",", "120", ",", "122", 
+   ",", "124", ",", "126", ",", "128", ",", "130", ",", "132", ",", "134", 
+   ",", "136", ",", "138", ",", "140", ",", "142", ",", "144", ",", "146", 
+   ",", "148", ",", "150", ",", "152", ",", "154", ",", "156", ",", "158", 
+   ",", "160", ",", "162", ",", "164", ",", "166", ",", "168", ",", "170", 
+   ",", "172", ",", "174", ",", "176", ",", "178", ",", "180", ",", "182", 
+   ",", "184", ",", "186", ",", "188", ",", "190", ",", "192", ",", "194", 
+   ",", "196", ",", "198", ",", "200", ",", "202", ",", "204", ",", "206", 
+   ",", "208", ",", "210", ",", "212", ",", "214", ",", "216", ",", "218", 
+   ",", "220", ",", "222", ",", "224", ",", "226", ",", "228", ",", "230", 
+   ",", "232", ",", "234", ",", "236", ",", "238", ",", "240", ",", "242", 
+   ",", "244", ",", "246", ",", "248", ",", "250", ",", "252", ",", "254", 
+   ",", "256", ",", "258", ",", "260", ",", "262", ",", "264", ",", "266", 
+   ",", "268", ",", "270", ",", "272", ",", "274", ",", "276", ",", "278", 
+   ",", "280", ",", "282", ",", "284", ",", "286", ",", "288", ",", "290", 
+   ",", "292", ",", "294", ",", "296", ",", "298", ",", "300", ",", "302", 
+   ",", "304", ",", "306", ",", "308", ",", "310", ",", "312", ",", "314", 
+   ",", "316", ",", "318", ",", "320", ",", "322", ",", "324", ",", "326", 
+   ",", "328", ",", "330", ",", "332", ",", "334", ",", "336", ",", "338", 
+   ",", "340", ",", "342", ",", "344", ",", "346", ",", "348", ",", "350", 
+   ",", "352", ",", "354", ",", "356", ",", "358", ",", "360", ",", "362", 
+   ",", "364", ",", "366", ",", "368", ",", "370", ",", "372", ",", "374", 
+   ",", "376", ",", "378", ",", "380", ",", "382"}], "}"}]], "Output",
+ CellChangeTimes->{3.961976632231932*^9, 3.9619809770882893`*^9, 
+  3.9619810097463207`*^9, 3.9619811218600807`*^9},
+ CellLabel->"Out[37]=",ExpressionUUID->"895b5874-debf-0a48-ae62-8dab316fed76"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Define destination folder", "Section",
+ CellChangeTimes->{{3.961975376895691*^9, 3.9619753814743233`*^9}, 
+   3.9619772057400646`*^9},ExpressionUUID->"2d4b7e27-5af5-f845-ba5a-\
+f5cb45186c31"],
+
+Cell["Define  the  folder  where  the  captures  will  be  saved .", "Text",
+ CellChangeTimes->{{3.961976880606428*^9, 
+  3.961976881556385*^9}},ExpressionUUID->"bd63e7fb-6482-2e49-88dd-\
+28c8e3a78384"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "\"\<F:\\\\imagenes\\\\capturas 2\>\"", "]"}], 
+  ";"}]], "Input",
+ CellLabel->"In[38]:=",ExpressionUUID->"281b0cfd-c2d2-654f-a043-c46fbcd7ed29"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Capture pages", "Section",
+ CellChangeTimes->{{3.961967124424393*^9, 3.961967133263727*^9}, 
+   3.961977211620045*^9},ExpressionUUID->"50116fd0-d927-8e4b-94f2-\
+992f6543a073"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"func", "[", "lista_", "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "sesion", ",", " ", "loginURL", ",", " ", "email", ",", " ", 
+      "password"}], "}"}], ",", "\n", "  ", 
+    RowBox[{"(*", 
+     RowBox[{
+     "Open", " ", "the", " ", "url", " ", "of", " ", "the", " ", "page"}], 
+     "*)"}], "\n", "  ", 
+    RowBox[{
+     RowBox[{"sesion", " ", "=", " ", 
+      RowBox[{"StartWebSession", "[", 
+       RowBox[{"\"\<Firefox\>\"", ",", " ", 
+        RowBox[{"Visible", " ", "->", " ", "False"}]}], "]"}]}], ";", "\n", 
+     "  ", 
+     RowBox[{
+     "loginURL", " ", "=", " ", "\"\<https://archive.org/account/login\>\""}],
+      ";", "\n", "  ", 
+     RowBox[{"WebExecute", "[", 
+      RowBox[{"sesion", ",", " ", 
+       RowBox[{"\"\<OpenPage\>\"", " ", "->", " ", "loginURL"}]}], "]"}], ";",
+      "\n", "  ", 
+     RowBox[{"WebExecute", "[", 
+      RowBox[{"sesion", ",", " ", 
+       RowBox[{"\"\<SetWindowSize\>\"", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"4420", ",", " ", "3330"}], "}"}]}]}], "]"}], ";", "\n", 
+     "  ", 
+     RowBox[{"Pause", "[", "3", "]"}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", "Login", "*)"}], "\n", "  ", 
+     RowBox[{"email", " ", "=", " ", "\"\<cccccccccc@outlook.com\>\""}], ";", 
+     "\n", "  ", 
+     RowBox[{"password", " ", "=", " ", "\"\<cccccccccccc\>\""}], ";", "\n", 
+     "  ", "\n", "  ", 
+     RowBox[{"WebExecute", "[", 
+      RowBox[{"sesion", ",", " ", 
+       RowBox[{"\"\<JavascriptExecute\>\"", " ", "->", " ", 
+        RowBox[{
+        "\"\<\nvar emailInput=document.querySelector('input[name=\\\"username\
+\\\"]');\nemailInput.value='\>\"", " ", "<>", " ", "email", " ", "<>", " ", 
+         "\"\<';\nemailInput.dispatchEvent(new \
+Event('input',{bubbles:true}));\n\nvar \
+passInput=document.querySelector('input[name=\\\"password\\\"]');\n\
+passInput.value='\>\"", " ", "<>", " ", "password", " ", "<>", " ", 
+         "\"\<';\npassInput.dispatchEvent(new Event('input',{bubbles:true}));\
+\>\""}]}]}], "]"}], ";", "\n", "  ", 
+     RowBox[{"WebExecute", "[", 
+      RowBox[{"sesion", ",", " ", 
+       RowBox[{
+       "\"\<JavascriptExecute\>\"", " ", "->", " ", 
+        "\"\<\ndocument.querySelector('input[name=\\\"submit-to-login\\\"]').\
+click();\>\""}]}], "]"}], ";", "\n", "  ", 
+     RowBox[{"Pause", "[", "2", "]"}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", 
+      RowBox[{"Page", " ", "load", " ", "and", " ", "capture"}], "*)"}], "\n",
+      "  ", 
+     RowBox[{"Map", "[", "\n", "   ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", " ", "=", " ", "#"}], ",", " ", "pags", ",", " ", 
+            RowBox[{"tiem", " ", "=", " ", "False"}], ",", " ", 
+            RowBox[{"intentos", " ", "=", " ", "0"}], ",", " ", 
+            RowBox[{"maxIntentos", " ", "=", " ", "40"}], ",", " ", "foto", 
+            ",", " ", "res"}], "}"}], ",", " ", 
+          RowBox[{
+           RowBox[{"pags", " ", "=", " ", 
+            RowBox[{
+            "\"\<https://archive.org/details/isbn_9782130504733/page/\>\"", 
+             " ", "<>", " ", 
+             RowBox[{"ToString", "[", "x", "]"}], " ", "<>", " ", 
+             "\"\</mode/2up\>\""}]}], ";", "\n", "     ", 
+           RowBox[{"WebExecute", "[", 
+            RowBox[{"sesion", ",", " ", 
+             RowBox[{"\"\<OpenPage\>\"", " ", "->", " ", "pags"}]}], "]"}], 
+           ";", "\n", "     ", 
+           RowBox[{"While", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"intentos", " ", "<", " ", "maxIntentos"}], ")"}], " ",
+               "&&", " ", 
+              RowBox[{"(", 
+               RowBox[{"!", " ", 
+                RowBox[{"TrueQ", "[", "tiem", "]"}]}], ")"}]}], ",", " ", 
+             RowBox[{
+              RowBox[{"tiem", " ", "=", " ", 
+               RowBox[{"WebExecute", "[", 
+                RowBox[{"sesion", ",", " ", 
+                 RowBox[{
+                 "\"\<JavascriptExecute\>\"", " ", "->", " ", 
+                  "\"\<var bookReader=document.getElementById('BookReader');\n\
+        if (!bookReader) return False;\n        var \
+visibleContainers=Array.from(bookReader.querySelectorAll('.BRpagecontainer')).\
+filter(function(page) {return page.offsetWidth>0 && page.offsetHeight>0;});\n \
+       if (visibleContainers.length===0) return false;\n        var \
+allLoaded=visibleContainers.every(function(page) {\n          var \
+img=page.querySelector('img');\n          if (!img) return false;\n          \
+return img.src && img.complete && img.offsetWidth>0 && img.offsetHeight>0;});\
+\n        return document.readyState==='complete' && allLoaded;\>\""}]}], 
+                "]"}]}], ";", "\n", "      ", 
+              RowBox[{"intentos", "++"}], ";", "\n", "      ", 
+              RowBox[{"Pause", "[", ".7", "]"}]}]}], "]"}], ";", "\n", 
+           "     ", 
+           RowBox[{"foto", " ", "=", " ", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"TrueQ", "[", "tiem", "]"}], ",", " ", 
+              RowBox[{"WebExecute", "[", 
+               RowBox[{"sesion", ",", " ", "\"\<CapturePage\>\""}], "]"}], 
+              ",", " ", 
+              "\"\<No captura, la p\[AAcute]gina no carg\[OAcute]\>\""}], 
+             "]"}]}], ";", "\n", "     ", 
+           RowBox[{"res", " ", "=", " ", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"ImageTake", "[", 
+               RowBox[{"foto", ",", " ", 
+                RowBox[{"{", 
+                 RowBox[{"180", ",", " ", "2980"}], "}"}], ",", " ", 
+                RowBox[{"{", 
+                 RowBox[{"400", ",", " ", "2220"}], "}"}]}], "]"}], ",", " ", 
+              RowBox[{"ImageTake", "[", 
+               RowBox[{"foto", ",", " ", 
+                RowBox[{"{", 
+                 RowBox[{"180", ",", " ", "2980"}], "}"}], ",", " ", 
+                RowBox[{"{", 
+                 RowBox[{"2180", ",", " ", "3960"}], "}"}]}], "]"}]}], 
+             "}"}]}], ";", "\n", "     ", 
+           RowBox[{"Export", "[", 
+            RowBox[{
+             RowBox[{"\"\<hoj\>\"", " ", "<>", " ", 
+              RowBox[{"ToString", "[", "x", "]"}], " ", "<>", " ", 
+              "\"\<.pdf\>\""}], ",", " ", 
+             RowBox[{"res", "[", 
+              RowBox[{"[", "1", "]"}], "]"}]}], "]"}], ";", "\n", "     ", 
+           RowBox[{"Export", "[", 
+            RowBox[{
+             RowBox[{"\"\<hoj\>\"", " ", "<>", " ", 
+              RowBox[{"ToString", "[", 
+               RowBox[{"x", " ", "+", " ", "1"}], "]"}], " ", "<>", " ", 
+              "\"\<.pdf\>\""}], ",", " ", 
+             RowBox[{"res", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "]"}], ";", "\n", "     ", 
+           RowBox[{"Remove", "[", "res", "]"}]}]}], "]"}], " ", "&"}], ",", 
+       "\n", "   ", "lista"}], "]"}]}]}], "\n", "  ", "]"}]}]], "Input",
+ CellChangeTimes->{{3.961980875015821*^9, 3.961980883823658*^9}, {
+  3.9619810994615*^9, 3.961981109756647*^9}, {3.962018269104084*^9, 
+  3.9620182737440205`*^9}},ExpressionUUID->"7129dd94-e5f2-324b-b994-\
+605cfa3baf62"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Ejecutar", "Section",
+ CellChangeTimes->{{3.961980999384001*^9, 
+  3.961981000399292*^9}},ExpressionUUID->"dee5af9a-58da-2447-af39-\
+70c5bd88614b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"func", "[", "finalPag", "]"}], "//", "AbsoluteTiming"}]], "Input",
+ CellChangeTimes->{{3.961970872557497*^9, 3.9619708794351826`*^9}, 
+   3.9619719169882164`*^9, {3.961972062848671*^9, 3.961972086297018*^9}, {
+   3.961972202212761*^9, 3.961972211747784*^9}, {3.961972249661347*^9, 
+   3.96197227105686*^9}, {3.9619724212885323`*^9, 3.961972425579935*^9}, {
+   3.961972632590704*^9, 3.961972634056591*^9}},
+ CellLabel->"In[40]:=",ExpressionUUID->"851fd812-ead6-3449-afca-014376a60a99"]
+}, Open  ]]
+},
+WindowSize->{1188, 600.75},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"e18f29f9-1c3a-ad4e-a88f-15b42cda2eae"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 185, 3, 45, "Subsubsection",ExpressionUUID->"3cf77218-6afe-fb48-9c1c-38a3da5d0c88"],
+Cell[CellGroupData[{
+Cell[790, 29, 2032, 53, 105, "Input",ExpressionUUID->"7e4d7224-fd06-8949-99ef-ecc5ec393ea5"],
+Cell[2825, 84, 533, 7, 32, "Output",ExpressionUUID->"ad71d457-a583-a04a-9858-8e249e946fbf"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3407, 97, 252, 4, 45, "Subsubsection",ExpressionUUID->"fdfc0c0c-0013-4843-8b4a-65d3dba12090"],
+Cell[3662, 103, 764, 15, 48, "Input",ExpressionUUID->"971248c2-5f6e-974a-8ad1-a6ed8999c672"],
+Cell[4429, 120, 232, 6, 35, "Text",ExpressionUUID->"0abc1a21-ffee-744a-b23e-b321036e6ca7"],
+Cell[CellGroupData[{
+Cell[4686, 130, 875, 24, 67, "Input",ExpressionUUID->"a6b70e2b-3770-2b4f-b7e0-25077b23a55a"],
+Cell[5564, 156, 2700, 37, 128, "Output",ExpressionUUID->"895b5874-debf-0a48-ae62-8dab316fed76"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8313, 199, 197, 3, 67, "Section",ExpressionUUID->"2d4b7e27-5af5-f845-ba5a-f5cb45186c31"],
+Cell[8513, 204, 202, 3, 35, "Text",ExpressionUUID->"bd63e7fb-6482-2e49-88dd-28c8e3a78384"],
+Cell[8718, 209, 200, 4, 28, "Input",ExpressionUUID->"281b0cfd-c2d2-654f-a043-c46fbcd7ed29"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8955, 218, 181, 3, 67, "Section",ExpressionUUID->"50116fd0-d927-8e4b-94f2-992f6543a073"],
+Cell[9139, 223, 7214, 156, 942, "Input",ExpressionUUID->"7129dd94-e5f2-324b-b994-605cfa3baf62"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16390, 384, 153, 3, 67, "Section",ExpressionUUID->"dee5af9a-58da-2447-af39-70c5bd88614b"],
+Cell[16546, 389, 519, 8, 28, "Input",ExpressionUUID->"851fd812-ead6-3449-afca-014376a60a99"]
+}, Open  ]]
+}
+]
+*)
+
