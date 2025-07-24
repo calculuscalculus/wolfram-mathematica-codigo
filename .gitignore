@@ -1,0 +1,22 @@
+# Wolfram Mathematica temporary files
+*.nb.bak
+*.nb~
+*.tmp
+
+# Image captures and outputs
+hoj*.pdf
+*.png
+*.jpg
+*.jpeg
+*.tiff
+
+# Analysis reports
+*_analysis_report.txt
+comprehensive_book_analysis.txt
+
+# Test files
+test_page.*
+
+# System files
+.DS_Store
+Thumbs.db
