@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     19000,        442]
-NotebookOptionsPosition[     17081,        400]
-NotebookOutlinePosition[     17485,        416]
-CellTagsIndexPosition[     17442,        413]
+NotebookDataLength[     26400,        500]
+NotebookOptionsPosition[     24400,        458]
+NotebookOutlinePosition[     24800,        474]
+CellTagsIndexPosition[     24757,        471]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -378,6 +378,343 @@ return img.src && img.complete && img.offsetWidth>0 && img.offsetHeight>0;});\
   3.9619810994615*^9, 3.961981109756647*^9}, {3.962018269104084*^9, 
   3.9620182737440205`*^9}},ExpressionUUID->"7129dd94-e5f2-324b-b994-\
 605cfa3baf62"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Image Description and Analysis", "Section",
+ CellChangeTimes->{{3.962100000000000*^9, 
+  3.962100010000000*^9}},ExpressionUUID->"img-desc-section-uuid"],
+
+Cell["Analyze and describe captured book page images with OCR and content analysis.", "Text",
+ CellChangeTimes->{{3.962100020000000*^9, 
+  3.962100030000000*^9}},ExpressionUUID->"img-desc-text-uuid"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"describeImage", "[", "imagePath_", "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"img", ",", " ", "ocrText", ",", " ", "imgFeatures", ",", " ", "description"}], "}"}], ",", "\n", "  ", 
+    RowBox[{"(*", "Load the image", "*)"}], "\n", "  ", 
+    RowBox[{
+     RowBox[{"img", " ", "=", " ", 
+      RowBox[{"Import", "[", "imagePath", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", "Extract text using OCR", "*)"}], "\n", "  ", 
+     RowBox[{"ocrText", " ", "=", " ", 
+      RowBox[{"TextRecognize", "[", "img", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", "Analyze image features", "*)"}], "\n", "  ", 
+     RowBox[{"imgFeatures", " ", "=", " ", 
+      RowBox[{"Association", "[", "\n", "    ", 
+       RowBox[{
+        RowBox[{"\"\<Dimensions\>\"", " ", "->", " ", 
+         RowBox[{"ImageDimensions", "[", "img", "]"}]}], ",", "\n", "    ", 
+        RowBox[{"\"\<Histogram\>\"", " ", "->", " ", 
+         RowBox[{"ImageHistogram", "[", "img", "]"}]}], ",", "\n", "    ", 
+        RowBox[{"\"\<ColorSpace\>\"", " ", "->", " ", 
+         RowBox[{"ImageColorSpace", "[", "img", "]"}]}], ",", "\n", "    ", 
+        RowBox[{"\"\<TextLines\>\"", " ", "->", " ", 
+         RowBox[{"Length", "[", 
+          RowBox[{"StringSplit", "[", 
+           RowBox[{"ocrText", ",", " ", "\"\<\\n\>\""}], "]"}], "]"}]}], ",", "\n", "    ", 
+        RowBox[{"\"\<WordCount\>\"", " ", "->", " ", 
+         RowBox[{"Length", "[", 
+          RowBox[{"StringSplit", "[", "ocrText", "]"}], "]"}]}]}], "\n", "    ", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", "Create description", "*)"}], "\n", "  ", 
+     RowBox[{"description", " ", "=", " ", 
+      RowBox[{"StringJoin", "[", "\n", "    ", 
+       RowBox[{
+        "\"\<Image Analysis Report:\\n\>\"", ",", "\n", "    ", 
+        "\"\<- Dimensions: \>\"", ",", " ", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"imgFeatures", "[", "\"\<Dimensions\>\"", "]"}], "]"}], ",", " ", "\"\< pixels\\n\>\"", ",", "\n", "    ", 
+        "\"\<- Color Space: \>\"", ",", " ", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"imgFeatures", "[", "\"\<ColorSpace\>\"", "]"}], "]"}], ",", " ", "\"\<\\n\>\"", ",", "\n", "    ", 
+        "\"\<- Text Lines Detected: \>\"", ",", " ", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"imgFeatures", "[", "\"\<TextLines\>\"", "]"}], "]"}], ",", " ", "\"\<\\n\>\"", ",", "\n", "    ", 
+        "\"\<- Word Count: \>\"", ",", " ", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"imgFeatures", "[", "\"\<WordCount\>\"", "]"}], "]"}], ",", " ", "\"\<\\n\\n\>\"", ",", "\n", "    ", 
+        "\"\<Extracted Text (first 500 characters):\\n\>\"", ",", "\n", "    ", 
+        RowBox[{"StringTake", "[", 
+         RowBox[{"ocrText", ",", " ", 
+          RowBox[{"UpTo", "[", "500", "]"}]}], "]"}]}], "\n", "    ", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", "Return analysis results", "*)"}], "\n", "  ", 
+     RowBox[{"Association", "[", "\n", "    ", 
+      RowBox[{
+       RowBox[{"\"\<Description\>\"", " ", "->", " ", "description"}], ",", "\n", "    ", 
+       RowBox[{"\"\<OCRText\>\"", " ", "->", " ", "ocrText"}], ",", "\n", "    ", 
+       RowBox[{"\"\<Features\>\"", " ", "->", " ", "imgFeatures"}], ",", "\n", "    ", 
+       RowBox[{"\"\<Image\>\"", " ", "->", " ", "img"}]}], "\n", "    ", "]"}]}]}], "\n", "  ", "]"}]}]], "Input",
+ CellChangeTimes->{{3.962100040000000*^9, 3.962100080000000*^9}},
+ CellLabel->"In[41]:=",ExpressionUUID->"describe-image-func-uuid"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"batchDescribeImages", "[", "directory_", "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"imageFiles", ",", " ", "results"}], "}"}], ",", "\n", "  ", 
+    RowBox[{"(*", "Get all image files in directory", "*)"}], "\n", "  ", 
+    RowBox[{
+     RowBox[{"imageFiles", " ", "=", " ", 
+      RowBox[{"FileNames", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<*.jpg\>\"", ",", " ", "\"\<*.jpeg\>\"", ",", " ", "\"\<*.png\>\"", ",", " ", "\"\<*.pdf\>\"", ",", " ", "\"\<*.tiff\>\""}], "}"}], ",", " ", "directory"}], "]"}]}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", "Process each image", "*)"}], "\n", "  ", 
+     RowBox[{"results", " ", "=", " ", 
+      RowBox[{"Association", "[", 
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"FileBaseName", "[", "#", "]"}], " ", "->", " ", 
+          RowBox[{"describeImage", "[", "#", "]"}]}], " ", "&", ",", " ", "imageFiles"}], "]"}], "]"}]}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", "Export summary report", "*)"}], "\n", "  ", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{"directory", ",", " ", "\"\<image_analysis_report.txt\>\""}], "}"}], "]"}], ",", "\n", "    ", 
+       RowBox[{"StringJoin", "[", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"StringJoin", "[", 
+           RowBox[{
+            "\"\<\\n=== \>\"", ",", " ", "file", ",", " ", "\"\< ===\\n\>\"", ",", " ", 
+            RowBox[{"results", "[", "file", "]"}], "[", "\"\<Description\>\"", "]"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"file", ",", " ", 
+            RowBox[{"Keys", "[", "results", "]"}]}], "}"}]}], "]"}], "]"}]}], "]"}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"results"}]}]}], "\n", "  ", "]"}]}]], "Input",
+ CellChangeTimes->{{3.962100090000000*^9, 3.962100120000000*^9}},
+ CellLabel->"In[42]:=",ExpressionUUID->"batch-describe-func-uuid"],
+
+Cell["Example usage:", "Text",
+ CellChangeTimes->{{3.962100130000000*^9, 
+  3.962100135000000*^9}},ExpressionUUID->"example-text-uuid"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Analyze", " ", "a", " ", "single", " ", "captured", " ", "image"}], " ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"result", " ", "=", " ", 
+    RowBox[{"describeImage", "[", "\"\<path/to/captured/image.pdf\>\"", "]"}]}], " ", "*)"}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Analyze", " ", "all", " ", "images", " ", "in", " ", "capture", " ", "directory"}], " ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"allResults", " ", "=", " ", 
+    RowBox[{"batchDescribeImages", "[", "Directory", "[", "]", "]"}]}], " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.962100140000000*^9, 3.962100150000000*^9}},
+ CellLabel->"In[43]:=",ExpressionUUID->"example-usage-uuid"],
+
+Cell["Enhanced capture function with automatic image analysis:", "Text",
+ CellChangeTimes->{{3.962100160000000*^9, 
+  3.962100170000000*^9}},ExpressionUUID->"enhanced-func-text-uuid"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"funcWithDescription", "[", "lista_", "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "sesion", ",", " ", "loginURL", ",", " ", "email", ",", " ", 
+      "password", ",", " ", "analysisResults"}], "}"}], ",", "\n", "  ", 
+    RowBox[{"(*", 
+     RowBox[{
+     "Open", " ", "the", " ", "url", " ", "of", " ", "the", " ", "page"}], 
+     "*)"}], "\n", "  ", 
+    RowBox[{
+     RowBox[{"sesion", " ", "=", " ", 
+      RowBox[{"StartWebSession", "[", 
+       RowBox[{"\"\<Firefox\>\"", ",", " ", 
+        RowBox[{"Visible", " ", "->", " ", "False"}]}], "]"}]}], ";", "\n", 
+     "  ", 
+     RowBox[{
+     "loginURL", " ", "=", " ", "\"\<https://archive.org/account/login\>\""}],
+      ";", "\n", "  ", 
+     RowBox[{"WebExecute", "[", 
+      RowBox[{"sesion", ",", " ", 
+       RowBox[{"\"\<OpenPage\>\"", " ", "->", " ", "loginURL"}]}], "]"}], ";",
+      "\n", "  ", 
+     RowBox[{"WebExecute", "[", 
+      RowBox[{"sesion", ",", " ", 
+       RowBox[{"\"\<SetWindowSize\>\"", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"4420", ",", " ", "3330"}], "}"}]}]}], "]"}], ";", "\n", 
+     "  ", 
+     RowBox[{"Pause", "[", "3", "]"}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", "Login", "*)"}], "\n", "  ", 
+     RowBox[{"email", " ", "=", " ", "\"\<cccccccccc@outlook.com\>\""}], ";", 
+     "\n", "  ", 
+     RowBox[{"password", " ", "=", " ", "\"\<cccccccccccc\>\""}], ";", "\n", 
+     "  ", "\n", "  ", 
+     RowBox[{"WebExecute", "[", 
+      RowBox[{"sesion", ",", " ", 
+       RowBox[{"\"\<JavascriptExecute\>\"", " ", "->", " ", 
+        RowBox[{
+        "\"\<\nvar emailInput=document.querySelector('input[name=\\\"username\
+.\\\"]');\nemailInput.value='\>\"", " ", "<>", " ", "email", " ", "<>", " ", 
+         "\"\<';\nemailInput.dispatchEvent(new \
+Event('input',{bubbles:true}));\n\nvar \
+passInput=document.querySelector('input[name=\\\"password\\\"]');\n\
+passInput.value='\>\"", " ", "<>", " ", "password", " ", "<>", " ", 
+         "\"\<';\npassInput.dispatchEvent(new Event('input',{bubbles:true}));\
+\>\""}]}]}], "]"}], ";", "\n", "  ", 
+     RowBox[{"WebExecute", "[", 
+      RowBox[{"sesion", ",", " ", 
+       RowBox[{
+       "\"\<JavascriptExecute\>\"", " ", "->", " ", 
+        "\"\<\ndocument.querySelector('input[name=\\\"submit-to-login\\\"]').\
+click();\>\""}]}], "]"}], ";", "\n", "  ", 
+     RowBox[{"Pause", "[", "2", "]"}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", "Initialize analysis results", "*)"}], "\n", "  ", 
+     RowBox[{"analysisResults", " ", "=", " ", 
+      RowBox[{"Association", "[", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", 
+      RowBox[{"Page", " ", "load", ",", " ", "capture", ",", " ", "and", " ", "analyze"}], "*)"}], "\n", "  ", 
+     RowBox[{"Map", "[", "\n", "   ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", " ", "=", " ", "#"}], ",", " ", "pags", ",", " ", 
+            RowBox[{"tiem", " ", "=", " ", "False"}], ",", " ", 
+            RowBox[{"intentos", " ", "=", " ", "0"}], ",", " ", 
+            RowBox[{"maxIntentos", " ", "=", " ", "40"}], ",", " ", "foto", 
+            ",", " ", "res", ",", " ", "fileName1", ",", " ", "fileName2", 
+            ",", " ", "analysis1", ",", " ", "analysis2"}], "}"}], ",", " ", 
+          RowBox[{
+           RowBox[{"pags", " ", "=", " ", 
+            RowBox[{
+            "\"\<https://archive.org/details/isbn_9782130504733/page/\>\"", 
+             " ", "<>", " ", 
+             RowBox[{"ToString", "[", "x", "]"}], " ", "<>", " ", 
+             "\"\</mode/2up\>\""}]}], ";", "\n", "     ", 
+           RowBox[{"WebExecute", "[", 
+            RowBox[{"sesion", ",", " ", 
+             RowBox[{"\"\<OpenPage\>\"", " ", "->", " ", "pags"}]}], "]"}], 
+           ";", "\n", "     ", 
+           RowBox[{"While", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"intentos", " ", "<", " ", "maxIntentos"}], ")"}], " ",
+               "&&", " ", 
+              RowBox[{"(", 
+               RowBox[{"!", " ", 
+                RowBox[{"TrueQ", "[", "tiem", "]"}]}], ")"}]}], ",", " ", 
+             RowBox[{
+              RowBox[{"tiem", " ", "=", " ", 
+               RowBox[{"WebExecute", "[", 
+                RowBox[{"sesion", ",", " ", 
+                 RowBox[{
+                 "\"\<JavascriptExecute\>\"", " ", "->", " ", 
+                  "\"\<var bookReader=document.getElementById('BookReader');\n\
+        if (!bookReader) return False;\n        var \
+visibleContainers=Array.from(bookReader.querySelectorAll('.BRpagecontainer')).\
+filter(function(page) {return page.offsetWidth>0 && page.offsetHeight>0;});\n \
+       if (visibleContainers.length===0) return false;\n        var \
+allLoaded=visibleContainers.every(function(page) {\n          var \
+img=page.querySelector('img');\n          if (!img) return false;\n          \
+return img.src && img.complete && img.offsetWidth>0 && img.offsetHeight>0;});\
+\n        return document.readyState==='complete' && allLoaded;\>\""}]}], 
+                "]"}]}], ";", "\n", "      ", 
+              RowBox[{"intentos", "++"}], ";", "\n", "      ", 
+              RowBox[{"Pause", "[", ".7", "]"}]}]}], "]"}], ";", "\n", 
+           "     ", 
+           RowBox[{"foto", " ", "=", " ", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"TrueQ", "[", "tiem", "]"}], ",", " ", 
+              RowBox[{"WebExecute", "[", 
+               RowBox[{"sesion", ",", " ", "\"\<CapturePage\>\""}], "]"}], 
+              ",", " ", 
+              "\"\<No captura, la p\[AAcute]gina no carg\[OAcute]\>\""}], 
+             "]"}]}], ";", "\n", "     ", 
+           RowBox[{"res", " ", "=", " ", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"ImageTake", "[", 
+               RowBox[{"foto", ",", " ", 
+                RowBox[{"{", 
+                 RowBox[{"180", ",", " ", "2980"}], "}"}], ",", " ", 
+                RowBox[{"{", 
+                 RowBox[{"400", ",", " ", "2220"}], "}"}]}], "]"}], ",", " ", 
+              RowBox[{"ImageTake", "[", 
+               RowBox[{"foto", ",", " ", 
+                RowBox[{"{", 
+                 RowBox[{"180", ",", " ", "2980"}], "}"}], ",", " ", 
+                RowBox[{"{", 
+                 RowBox[{"2180", ",", " ", "3960"}], "}"}]}], "]"}]}], 
+             "}"}]}], ";", "\n", "     ", 
+           RowBox[{"fileName1", " ", "=", " ", 
+            RowBox[{"\"\<hoj\>\"", " ", "<>", " ", 
+             RowBox[{"ToString", "[", "x", "]"}], " ", "<>", " ", 
+             "\"\<.pdf\>\""}]}], ";", "\n", "     ", 
+           RowBox[{"fileName2", " ", "=", " ", 
+            RowBox[{"\"\<hoj\>\"", " ", "<>", " ", 
+             RowBox[{"ToString", "[", 
+              RowBox[{"x", " ", "+", " ", "1"}], "]"}], " ", "<>", " ", 
+             "\"\<.pdf\>\""}]}], ";", "\n", "     ", 
+           RowBox[{"Export", "[", 
+            RowBox[{"fileName1", ",", " ", 
+             RowBox[{"res", "[", 
+              RowBox[{"[", "1", "]"}], "]"}]}], "]"}], ";", "\n", "     ", 
+           RowBox[{"Export", "[", 
+            RowBox[{"fileName2", ",", " ", 
+             RowBox[{"res", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "]"}], ";", "\n", "     ", "\n", "     ", 
+           RowBox[{"(*", "Analyze captured images", "*)"}], "\n", "     ", 
+           RowBox[{"analysis1", " ", "=", " ", 
+            RowBox[{"describeImage", "[", 
+             RowBox[{"res", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "]"}]}], ";", "\n", "     ", 
+           RowBox[{"analysis2", " ", "=", " ", 
+            RowBox[{"describeImage", "[", 
+             RowBox[{"res", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], "]"}]}], ";", "\n", "     ", "\n", "     ", 
+           RowBox[{"(*", "Store analysis results", "*)"}], "\n", "     ", 
+           RowBox[{
+            RowBox[{"analysisResults", "[", 
+             RowBox[{"ToString", "[", "x", "]"}], "]"}], " ", "=", " ", "analysis1"}], ";", "\n", "     ", 
+           RowBox[{
+            RowBox[{"analysisResults", "[", 
+             RowBox[{"ToString", "[", 
+              RowBox[{"x", " ", "+", " ", "1"}], "]"}], "]"}], " ", "=", " ", "analysis2"}], ";", "\n", "     ", "\n", "     ", 
+           RowBox[{"Remove", "[", "res", "]"}]}]}], "]"}], " ", "&"}], ",", 
+       "\n", "   ", "lista"}], "]"}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"(*", "Export comprehensive analysis report", "*)"}], "\n", "  ", 
+     RowBox[{"Export", "[", 
+      RowBox[{"\"\<comprehensive_book_analysis.txt\>\"", ",", " ", 
+       RowBox[{"StringJoin", "[", 
+        RowBox[{"\"\<Book Analysis Report\\n\\n\>\"", ",", " ", 
+         RowBox[{"StringJoin", "[", 
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{"StringJoin", "[", 
+             RowBox[{
+              "\"\<\\n=== Page \>\"", ",", " ", "page", ",", " ", 
+              "\"\< ===\\n\>\"", ",", " ", 
+              RowBox[{
+               RowBox[{"analysisResults", "[", "page", "]"}], "[", 
+               "\"\<Description\>\"", "]"}]}], "]"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"page", ",", " ", 
+              RowBox[{"Keys", "[", "analysisResults", "]"}]}], "}"}]}], "]"}], 
+          "]"}]}], "]"}]}], "]"}], ";", "\n", "  ", "\n", "  ", 
+     RowBox[{"analysisResults"}]}]}], "\n", "  ", "]"}]}]], "Input",
+ CellChangeTimes->{{3.962100180000000*^9, 3.962100220000000*^9}},
+ CellLabel->"In[44]:=",ExpressionUUID->"enhanced-func-uuid"]
+
 }, Open  ]],
 
 Cell[CellGroupData[{
