@@ -216,6 +216,49 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
+Cell["Image Metadata Analysis Functions", "Section",
+ CellChangeTimes->{{3.961967124424393*^9, 3.961967133263727*^9}, 
+   3.961977211620045*^9, {3.962018300000000*^9, 3.962018310000000*^9}},
+ ExpressionUUID->"metadata-analysis-section"],
+
+Cell["Function to extract image metadata including size, format, and resolution.", "Text",
+ CellChangeTimes->{{3.962018320000000*^9, 3.962018330000000*^9}},
+ ExpressionUUID->"metadata-description"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"extractImageMetadata", "[", "image_", "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"dims", ",", " ", "type", ",", " ", "resolution", ",", " ", "fileSize"}], "}"}], ",", "\n", "  ", 
+    RowBox[{
+     RowBox[{"dims", " ", "=", " ", 
+      RowBox[{"ImageDimensions", "[", "image", "]"}]}], ";", "\n", "  ", 
+     RowBox[{"type", " ", "=", " ", 
+      RowBox[{"Head", "[", "image", "]"}]}], ";", "\n", "  ", 
+     RowBox[{"resolution", " ", "=", " ", 
+      RowBox[{"ImageResolution", "[", "image", "]"}]}], ";", "\n", "  ", 
+     RowBox[{"fileSize", " ", "=", " ", 
+      RowBox[{"ByteCount", "[", "image", "]"}]}], ";", "\n", "  ", 
+     RowBox[{"Association", "[", "\n", "   ", 
+      RowBox[{
+       RowBox[{"\"\<Width\>\"", " ", "->", " ", 
+        RowBox[{"dims", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], ",", "\n", "   ", 
+       RowBox[{"\"\<Height\>\"", " ", "->", " ", 
+        RowBox[{"dims", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], ",", "\n", "   ", 
+       RowBox[{"\"\<Type\>\"", " ", "->", " ", 
+        RowBox[{"ToString", "[", "type", "]"}]}], ",", "\n", "   ", 
+       RowBox[{"\"\<Resolution\>\"", " ", "->", " ", "resolution"}], ",", "\n", "   ", 
+       RowBox[{"\"\<FileSize\>\"", " ", "->", " ", "fileSize"}]}], "\n", "  ", "]"}]}]}], "\n", "  ", "]"}]}]], "Input",
+ CellChangeTimes->{{3.962018340000000*^9, 3.962018400000000*^9}},
+ ExpressionUUID->"extract-metadata-function"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
 Cell["Capture pages", "Section",
  CellChangeTimes->{{3.961967124424393*^9, 3.961967133263727*^9}, 
    3.961977211620045*^9},ExpressionUUID->"50116fd0-d927-8e4b-94f2-\
@@ -229,17 +272,19 @@ Cell[BoxData[
     RowBox[{"{", 
      RowBox[{
      "sesion", ",", " ", "loginURL", ",", " ", "email", ",", " ", 
-      "password"}], "}"}], ",", "\n", "  ", 
+      "password", ",", " ", "metadataList"}], "}"}], ",", "\n", "  ",
     RowBox[{"(*", 
      RowBox[{
      "Open", " ", "the", " ", "url", " ", "of", " ", "the", " ", "page"}], 
      "*)"}], "\n", "  ", 
     RowBox[{
+     RowBox[{"metadataList", " ", "=", " ", 
+      RowBox[{"{", "}"}]}], ";", "\n", "  ", 
      RowBox[{"sesion", " ", "=", " ", 
       RowBox[{"StartWebSession", "[", 
        RowBox[{"\"\<Firefox\>\"", ",", " ", 
         RowBox[{"Visible", " ", "->", " ", "False"}]}], "]"}]}], ";", "\n", 
-     "  ", 
+     "  ",
      RowBox[{
      "loginURL", " ", "=", " ", "\"\<https://archive.org/account/login\>\""}],
       ";", "\n", "  ", 
@@ -292,7 +337,7 @@ click();\>\""}]}], "]"}], ";", "\n", "  ",
             RowBox[{"tiem", " ", "=", " ", "False"}], ",", " ", 
             RowBox[{"intentos", " ", "=", " ", "0"}], ",", " ", 
             RowBox[{"maxIntentos", " ", "=", " ", "40"}], ",", " ", "foto", 
-            ",", " ", "res"}], "}"}], ",", " ", 
+            ",", " ", "res", ",", " ", "metadata1", ",", " ", "metadata2"}], "}"}], ",", " ",
           RowBox[{
            RowBox[{"pags", " ", "=", " ", 
             RowBox[{
@@ -357,6 +402,67 @@ return img.src && img.complete && img.offsetWidth>0 && img.offsetHeight>0;});\
                 RowBox[{"{", 
                  RowBox[{"2180", ",", " ", "3960"}], "}"}]}], "]"}]}], 
              "}"}]}], ";", "\n", "     ", 
+           RowBox[{"(*", " ", 
+            RowBox[{"Extract", " ", "metadata", " ", "for", " ", "each", " ", "image"}], " ", "*)"}], "\n", "     ", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"StringQ", "[", "foto", "]"}], ",", " ", 
+             RowBox[{
+              RowBox[{"metadata1", " ", "=", " ", 
+               RowBox[{"Association", "[", 
+                RowBox[{
+                 RowBox[{"\"\<Page\>\"", " ", "->", " ", 
+                  RowBox[{"ToString", "[", "x", "]"}]}], ",", " ", 
+                 RowBox[{"\"\<ImageType\>\"", " ", "->", " ", "\"\<Left\>\""}], ",", " ", 
+                 RowBox[{"\"\<Status\>\"", " ", "->", " ", "\"\<Failed\>\""}], ",", " ", 
+                 RowBox[{"\"\<Width\>\"", " ", "->", " ", "\"\<N/A\>\""}], ",", " ", 
+                 RowBox[{"\"\<Height\>\"", " ", "->", " ", "\"\<N/A\>\""}], ",", " ", 
+                 RowBox[{"\"\<Type\>\"", " ", "->", " ", "\"\<N/A\>\""}], ",", " ", 
+                 RowBox[{"\"\<Resolution\>\"", " ", "->", " ", "\"\<N/A\>\""}], ",", " ", 
+                 RowBox[{"\"\<FileSize\>\"", " ", "->", " ", "\"\<N/A\>\""}]}], "]"}]}], ";", "\n", "       ", 
+              RowBox[{"metadata2", " ", "=", " ", 
+               RowBox[{"Association", "[", 
+                RowBox[{
+                 RowBox[{"\"\<Page\>\"", " ", "->", " ", 
+                  RowBox[{"ToString", "[", 
+                   RowBox[{"x", " ", "+", " ", "1"}], "]"}]}], ",", " ", 
+                 RowBox[{"\"\<ImageType\>\"", " ", "->", " ", "\"\<Right\>\""}], ",", " ", 
+                 RowBox[{"\"\<Status\>\"", " ", "->", " ", "\"\<Failed\>\""}], ",", " ", 
+                 RowBox[{"\"\<Width\>\"", " ", "->", " ", "\"\<N/A\>\""}], ",", " ", 
+                 RowBox[{"\"\<Height\>\"", " ", "->", " ", "\"\<N/A\>\""}], ",", " ", 
+                 RowBox[{"\"\<Type\>\"", " ", "->", " ", "\"\<N/A\>\""}], ",", " ", 
+                 RowBox[{"\"\<Resolution\>\"", " ", "->", " ", "\"\<N/A\>\""}], ",", " ", 
+                 RowBox[{"\"\<FileSize\>\"", " ", "->", " ", "\"\<N/A\>\""}]}], "]"}]}]}], ",", "\n", "       ", 
+             RowBox[{
+              RowBox[{"metadata1", " ", "=", " ", 
+               RowBox[{"Join", "[", 
+                RowBox[{
+                 RowBox[{"Association", "[", 
+                  RowBox[{
+                   RowBox[{"\"\<Page\>\"", " ", "->", " ", 
+                    RowBox[{"ToString", "[", "x", "]"}]}], ",", " ", 
+                   RowBox[{"\"\<ImageType\>\"", " ", "->", " ", "\"\<Left\>\""}], ",", " ", 
+                   RowBox[{"\"\<Status\>\"", " ", "->", " ", "\"\<Success\>\""}]}], "]"}], ",", " ", 
+                 RowBox[{"extractImageMetadata", "[", 
+                  RowBox[{"res", "[", 
+                   RowBox[{"[", "1", "]"}], "]"}], "]"}]}], "]"}]}], ";", "\n", "       ", 
+              RowBox[{"metadata2", " ", "=", " ", 
+               RowBox[{"Join", "[", 
+                RowBox[{
+                 RowBox[{"Association", "[", 
+                  RowBox[{
+                   RowBox[{"\"\<Page\>\"", " ", "->", " ", 
+                    RowBox[{"ToString", "[", 
+                     RowBox[{"x", " ", "+", " ", "1"}], "]"}]}], ",", " ", 
+                   RowBox[{"\"\<ImageType\>\"", " ", "->", " ", "\"\<Right\>\""}], ",", " ", 
+                   RowBox[{"\"\<Status\>\"", " ", "->", " ", "\"\<Success\>\""}]}], "]"}], ",", " ", 
+                 RowBox[{"extractImageMetadata", "[", 
+                  RowBox[{"res", "[", 
+                   RowBox[{"[", "2", "]"}], "]"}], "]"}]}], "]"}]}]}]}], "]"}], ";", "\n", "     ", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"metadataList", ",", " ", "metadata1"}], "]"}], ";", "\n", "     ", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"metadataList", ",", " ", "metadata2"}], "]"}], ";", "\n", "     ",
            RowBox[{"Export", "[", 
             RowBox[{
              RowBox[{"\"\<hoj\>\"", " ", "<>", " ", 
@@ -373,7 +479,15 @@ return img.src && img.complete && img.offsetWidth>0 && img.offsetHeight>0;});\
              RowBox[{"res", "[", 
               RowBox[{"[", "2", "]"}], "]"}]}], "]"}], ";", "\n", "     ", 
            RowBox[{"Remove", "[", "res", "]"}]}]}], "]"}], " ", "&"}], ",", 
-       "\n", "   ", "lista"}], "]"}]}]}], "\n", "  ", "]"}]}]], "Input",
+       "\n", "   ", "lista"}], "]"}], ";", "\n", "  ", 
+     RowBox[{"(*", " ", 
+      RowBox[{"Export", " ", "metadata", " ", "to", " ", "CSV"}], " ", "*)"}], "\n", "  ", 
+     RowBox[{"Export", "[", 
+      RowBox[{"\"\<book_images_metadata.csv\>\"", ",", " ", "metadataList"}], "]"}], ";", "\n", "  ", 
+     RowBox[{"Print", "[", 
+      RowBox[{"\"\<Metadata exported to book_images_metadata.csv with \>\"", " ", "<>", " ", 
+       RowBox[{"ToString", "[", 
+        RowBox[{"Length", "[", "metadataList", "]"}], "]"}], " ", "<>", " ", "\"\< records\>\""}], "]"}]}]}], "\n", "  ", "]"}]}]], "Input",
  CellChangeTimes->{{3.961980875015821*^9, 3.961980883823658*^9}, {
   3.9619810994615*^9, 3.961981109756647*^9}, {3.962018269104084*^9, 
   3.9620182737440205`*^9}},ExpressionUUID->"7129dd94-e5f2-324b-b994-\
