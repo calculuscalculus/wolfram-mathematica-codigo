@@ -4,8 +4,7 @@ Este proyecto es un script de Wolfram Mathematica diseñado para automatizar la 
 
 ## Funcionalidades
 
--   **Extracción de metadatos:** Obtiene automáticamente el número total de páginas del libro a partir de su URL en archive.org.
--   **Gestión de páginas:** Distingue y maneja tanto las páginas preliminares (con numeración especial) como las páginas principales del libro.
+
 -   **Automatización de sesión:** Inicia sesión en archive.org de forma automática utilizando las credenciales proporcionadas.
 -   **Captura de páginas:** Navega a cada página del libro, espera a que se cargue completamente y toma una captura de pantalla.
 -   **Procesamiento de imágenes:** Recorta las capturas de pantalla para separar las páginas individuales y las guarda como archivos PDF.
