@@ -1,0 +1,422 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     15000,        350]
+NotebookOptionsPosition[     13500,        315]
+NotebookOutlinePosition[     13900,        331]
+CellTagsIndexPosition[     13857,        328]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+
+Cell["Puzzle de Cerillos: 88 \[Divide] 31 = 14", "Title",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000010*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000001"],
+
+Cell["\<\
+Problema: La ecuaci\[OAcute]n 88 \[Divide] 31 = 14 est\[AAcute] formada con \
+27 cerillos (palillos) usando d\[IAcute]gitos de 7 segmentos. La ecuaci\[OAcute]n \
+no es v\[AAcute]lida matem\[AAcute]ticamente. Hay que mover cerillos para \
+obtener una ecuaci\[OAcute]n v\[AAcute]lida sin que desaparezca ning\[UAcute]n cerillo.\
+\>", "Text",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000020*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000002"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Conteo de segmentos por d\[IAcute]gito", "Section",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000030*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000003"],
+
+Cell["\<\
+Cada d\[IAcute]gito del 0 al 9 se construye con un n\[UAcute]mero determinado \
+de segmentos (cerillos):\
+\>", "Text",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000040*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000004"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"segmentos", "=", 
+   RowBox[{"<|", 
+    RowBox[{
+     RowBox[{"0", "->", "6"}], ",", 
+     RowBox[{"1", "->", "2"}], ",", 
+     RowBox[{"2", "->", "5"}], ",", 
+     RowBox[{"3", "->", "5"}], ",", 
+     RowBox[{"4", "->", "4"}], ",", 
+     RowBox[{"5", "->", "5"}], ",", 
+     RowBox[{"6", "->", "6"}], ",", 
+     RowBox[{"7", "->", "3"}], ",", 
+     RowBox[{"8", "->", "7"}], ",", 
+     RowBox[{"9", "->", "6"}]}], "|>"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"contarSegmentos", "[", "n_Integer", "]"}], ":=", 
+  RowBox[{"Total", "[", 
+   RowBox[{"segmentos", "/@", 
+    RowBox[{"IntegerDigits", "[", "n", "]"}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Grid", "[", 
+  RowBox[{
+   RowBox[{"Prepend", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"d", ",", 
+         RowBox[{"segmentos", "[", "d", "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"d", ",", "0", ",", "9"}], "}"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<D\[IAcute]gito\>\"", ",", "\"\<Cerillos\>\""}], "}"}]}], "]"}], 
+   ",", 
+   RowBox[{"Frame", "->", "All"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000050*^9}},
+ CellLabel->"In[1]:=",
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000005"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Verificaci\[OAcute]n de la ecuaci\[OAcute]n original", "Section",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000060*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000006"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"cerillosOriginal", "=", 
+   RowBox[{
+    RowBox[{"contarSegmentos", "[", "88", "]"}], "+", 
+    RowBox[{"contarSegmentos", "[", "31", "]"}], "+", 
+    RowBox[{"contarSegmentos", "[", "14", "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<88 \[Divide] 31 = 14\>\""}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<Cerillos en 88: \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{"contarSegmentos", "[", "88", "]"}], "]"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<Cerillos en 31: \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{"contarSegmentos", "[", "31", "]"}], "]"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<Cerillos en 14: \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{"contarSegmentos", "[", "14", "]"}], "]"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<Total de cerillos: \>\"", "<>", 
+   RowBox[{"ToString", "[", "cerillosOriginal", "]"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<\[CloseCurlyDoubleQuote]Es v\[AAcute]lida 88/31=14?\[CloseCurlyDoubleQuote]: \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{"88", "/", "31", "\[Equal]", "14"}], "]"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000070*^9}},
+ CellLabel->"In[2]:=",
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000007"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["B\[UAcute]squeda de ecuaciones v\[AAcute]lidas con 27 cerillos", "Section",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000080*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000008"],
+
+Cell["\<\
+Buscamos todas las ecuaciones de la forma A \[Divide] B = C donde:\n\
+- A, B, C son enteros positivos\n\
+- A / B = C (divisi\[OAcute]n exacta)\n\
+- La suma total de cerillos de los d\[IAcute]gitos de A, B y C es exactamente 27\
+\>", "Text",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000090*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000009"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"soluciones", "=", 
+   RowBox[{"Reap", "[", 
+    RowBox[{
+     RowBox[{"Do", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Divisible", "[", 
+            RowBox[{"a", ",", "b"}], "]"}], "&&", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"contarSegmentos", "[", "a", "]"}], "+", 
+             RowBox[{"contarSegmentos", "[", "b", "]"}], "+", 
+             RowBox[{"contarSegmentos", "[", 
+              RowBox[{"a", "/", "b"}], "]"}]}], "\[Equal]", "27"}]}], ",", 
+          RowBox[{"Sow", "[", 
+           RowBox[{"{", 
+            RowBox[{"a", ",", "b", ",", 
+             RowBox[{"a", "/", "b"}]}], "}"}], "]"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"a", ",", "1", ",", "999"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"b", ",", "1", ",", "a"}], "}"}]}], "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"soluciones", "=", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Length", "[", "soluciones", "]"}], ">", "1"}], ",", 
+     RowBox[{"soluciones", "[", 
+      RowBox[{"[", "2", "]"}], "]"}], ",", 
+     RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"soluciones", "=", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Length", "[", "soluciones", "]"}], ">", "0"}], ",", 
+     RowBox[{"First", "[", "soluciones", "]"}], ",", 
+     RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<N\[UAcute]mero total de soluciones: \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{"Length", "[", "soluciones", "]"}], "]"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000100*^9}},
+ CellLabel->"In[3]:=",
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000010"],
+
+Cell[CellGroupData[{
+
+Cell["Mostrar soluciones en formato tabla", "Subsection",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000110*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000011"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"tablaFormato", "=", 
+   RowBox[{"Map", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "<>", "\"\< \[Divide] \>\"", "<>", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "<>", "\"\< = \>\"", "<>", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "3", "]"}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{"contarSegmentos", "[", 
+          RowBox[{"ToExpression", "[", 
+           RowBox[{"#", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], "+", 
+         RowBox[{"contarSegmentos", "[", 
+          RowBox[{"ToExpression", "[", 
+           RowBox[{"#", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], "]"}], "]"}], "+", 
+         RowBox[{"contarSegmentos", "[", 
+          RowBox[{"ToExpression", "[", 
+           RowBox[{"#", "[", 
+            RowBox[{"[", "3", "]"}], "]"}], "]"}], "]"}]}]}], "}"}], "&"}], 
+     ",", 
+     RowBox[{"Map", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Map", "[", 
+         RowBox[{"ToString", ",", "#"}], "]"}], "&"}], ",", "soluciones"}], "]"}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Grid", "[", 
+  RowBox[{
+   RowBox[{"Prepend", "[", 
+    RowBox[{"tablaFormato", ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Ecuaci\[OAcute]n\>\"", ",", "\"\<Cerillos totales\>\""}], "}"}]}], "]"}], 
+   ",", 
+   RowBox[{"Frame", "->", "All"}], ",", 
+   RowBox[{"Background", "->", 
+    RowBox[{"{", 
+     RowBox[{"None", ",", 
+      RowBox[{"{", 
+       RowBox[{"LightBlue", ",", "None"}], "}"}]}], "}"}]}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000120*^9}},
+ CellLabel->"In[4]:=",
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000012"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Soluciones con dos d\[IAcute]gitos en el dividendo y divisor (formato similar al original)", "Subsection",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000130*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000013"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"solDosDigitos", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{"soluciones", ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"10", "\[LessEqual]", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "\[LessEqual]", "99"}], "&&", 
+       RowBox[{"10", "\[LessEqual]", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], "\[LessEqual]", "99"}]}], "&"}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<Soluciones con divisor y dividendo de 2 d\[IAcute]gitos: \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{"Length", "[", "solDosDigitos", "]"}], "]"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Grid", "[", 
+  RowBox[{
+   RowBox[{"Prepend", "[", 
+    RowBox[{
+     RowBox[{"Map", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", "\"\<\[Divide]\>\"", ",", 
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], ",", "\"\<=\>\"", ",", 
+          RowBox[{"#", "[", 
+           RowBox[{"[", "3", "]"}], "]"}], ",", 
+          RowBox[{
+           RowBox[{"contarSegmentos", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "+", 
+           RowBox[{"contarSegmentos", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "2", "]"}], "]"}], "]"}], "+", 
+           RowBox[{"contarSegmentos", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "3", "]"}], "]"}], "]"}]}]}], "}"}], "&"}], ",", 
+       "solDosDigitos"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       "\"\<A\>\"", ",", "\"\<\>\"", ",", "\"\<B\>\"", ",", "\"\<\>\"", ",", 
+       "\"\<C = A/B\>\"", ",", "\"\<Cerillos\>\""}], "}"}]}], "]"}], ",", 
+   RowBox[{"Frame", "->", "All"}], ",", 
+   RowBox[{"Background", "->", 
+    RowBox[{"{", 
+     RowBox[{"None", ",", 
+      RowBox[{"{", 
+       RowBox[{"LightGreen", ",", "None"}], "}"}]}], "}"}]}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000140*^9}},
+ CellLabel->"In[5]:=",
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000014"]
+}, Open  ]]
+
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Soluci\[OAcute]n destacada", "Section",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000150*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000015"],
+
+Cell["\<\
+La soluci\[OAcute]n m\[AAcute]s cercana al formato original (2 d\[IAcute]gitos \
+\[Divide] 2 d\[IAcute]gitos) es:\n\n88 \[Divide] 44 = 2\n\nVerificaci\[OAcute]n de cerillos:\n\
+- 88: 7 + 7 = 14 cerillos\n- 44: 4 + 4 = 8 cerillos\n- 2: 5 cerillos\n\
+- Total: 14 + 8 + 5 = 27 cerillos \[Checkmark]\n- 88 / 44 = 2 \[Checkmark]\n\
+\nOtras soluciones de 2 d\[IAcute]gitos \[Divide] 2 d\[IAcute]gitos:\n- 68 \[Divide] 34 = 2 \
+(cerillos: 13 + 9 + 5 = 27)\n- 86 \[Divide] 43 = 2 (cerillos: 13 + 9 + 5 = 27)\n\
+- 66 \[Divide] 22 = 3 (cerillos: 12 + 10 + 5 = 27)\n- 66 \[Divide] 33 = 2 \
+(cerillos: 12 + 10 + 5 = 27)\n- 69 \[Divide] 23 = 3 (cerillos: 12 + 10 + 5 = 27)\n\
+- 96 \[Divide] 32 = 3 (cerillos: 12 + 10 + 5 = 27)\n- 99 \[Divide] 33 = 3 \
+(cerillos: 12 + 10 + 5 = 27)\
+\>", "Text",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000160*^9}},
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000016"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Print", "[", "\"\<Verificaci\[OAcute]n de la soluci\[OAcute]n 88 \[Divide] 44 = 2:\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<  88 / 44 = \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{"88", "/", "44"}], "]"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<  Cerillos en 88: \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{"contarSegmentos", "[", "88", "]"}], "]"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<  Cerillos en 44: \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{"contarSegmentos", "[", "44", "]"}], "]"}], "<>", "\"\< (el 31 se convierte en 44: el d\[IAcute]gito 3 pasa a ser 4 y el d\[IAcute]gito 1 pasa a ser 4)\>\""}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<  Cerillos en 2: \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{"contarSegmentos", "[", "2", "]"}], "]"}], "<>", "\"\< (el 14 se convierte en 2: el d\[IAcute]gito 1 desaparece y el d\[IAcute]gito 4 pasa a ser 2)\>\""}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"\"\<  Total: \>\"", "<>", 
+   RowBox[{"ToString", "[", 
+    RowBox[{
+     RowBox[{"contarSegmentos", "[", "88", "]"}], "+", 
+     RowBox[{"contarSegmentos", "[", "44", "]"}], "+", 
+     RowBox[{"contarSegmentos", "[", "2", "]"}]}], "]"}], "<>", "\"\< cerillos\>\""}], "]"}]}], "Input",
+ CellChangeTimes->{{3.962000000000000*^9, 3.962000000000170*^9}},
+ CellLabel->"In[6]:=",
+ ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000017"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1188, 756},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000099"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[580, 22, 200, 3, 96, "Title",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000001"],
+Cell[783, 27, 350, 5, 58, "Text",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000002"],
+Cell[1136, 34, 180, 3, 67, "Section",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000003"],
+Cell[1319, 39, 250, 4, 35, "Text",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000004"],
+Cell[1572, 45, 1350, 36, 105, "Input",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000005"],
+Cell[2925, 83, 200, 3, 67, "Section",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000006"],
+Cell[3128, 88, 1500, 42, 201, "Input",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000007"],
+Cell[4631, 132, 205, 3, 67, "Section",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000008"],
+Cell[4839, 137, 380, 7, 81, "Text",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000009"],
+Cell[5222, 146, 2000, 60, 162, "Input",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000010"],
+Cell[7225, 208, 180, 3, 53, "Subsection",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000011"],
+Cell[7408, 213, 1850, 58, 162, "Input",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000012"],
+Cell[9261, 273, 235, 3, 53, "Subsection",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000013"],
+Cell[9499, 278, 2250, 72, 201, "Input",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000014"],
+Cell[11752, 352, 168, 3, 67, "Section",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000015"],
+Cell[11923, 357, 970, 21, 243, "Text",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000016"],
+Cell[12896, 380, 1500, 47, 162, "Input",ExpressionUUID->"a1b2c3d4-0001-0001-0001-000000000017"]
+}
+]
+*)
